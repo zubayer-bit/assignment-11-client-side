@@ -58,7 +58,8 @@ const RequestAsset = () => {
     }
 
     const requestData = {
-      assetId: selectedAsset._id,
+      // assetId: selectedAsset._id,
+      // assetId: new ObjectId(selectedAsset._id),
       assetName: selectedAsset.productName,
       assetType: selectedAsset.productType,
       requesterName: user.displayName,
@@ -131,6 +132,11 @@ const RequestAsset = () => {
                 {status === "pending" && (
                   <button className="btn btn-warning btn-sm" disabled>
                     Requested
+                  </button>
+                )}
+                {status === "approved" && (
+                  <button className="btn btn-warning btn-sm" disabled>
+                    Approved
                   </button>
                 )}
 

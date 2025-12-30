@@ -40,24 +40,29 @@ const AllRequests = () => {
     confirmButtonColor: "#16a34a",
   });
 
-  if (result.isConfirmed) {
-    try {
-      const res = await axiosSecure.patch(
-        `/asset-requests/approve/${request._id}`
-      );
+ if (result.isConfirmed) {
+  try {
+    const res = await axiosSecure.patch(
+      `/asset-requests/approve/${request._id}`
+    );
 
-      //  check success field from server
-      if (res.data.result.modifiedCount > 0) {
-        Swal.fire("Approved!","success");
-        refetch(); // refresh table
-      } else {
-        Swal.fire( "Something went wrong");
-      }
-    } catch (err) {
-      console.error(err);
-      Swal.fire("Error!", "Server error. Try again.", "error");
+    // Success check
+    if (res.data.result?.modifiedCount > 0) {
+      Swal.fire("Approved!", "Asset request approved successfully", "success");
+      refetch(); // refresh table
+    } else {
+      // যদি server থেকে message আসে
+      const msg = res.data.message || "Something went wrong";
+      Swal.fire("Error!", msg, "error");
     }
+  } catch (err) {
+    console.error(err);
+    // axios error থেকে server message handle
+    const msg = err.response?.data?.message || "Server error. Try again.";
+    Swal.fire("Error!", msg, "error");
   }
+}
+
 };
 
  /* =========================

@@ -58,8 +58,8 @@ const RequestAsset = () => {
     }
 
     const requestData = {
-      // assetId: selectedAsset._id,
-      // assetId: new ObjectId(selectedAsset._id),
+      assetId: selectedAsset._id,
+
       assetName: selectedAsset.productName,
       assetType: selectedAsset.productType,
       requesterName: user.displayName,
@@ -87,10 +87,9 @@ const RequestAsset = () => {
 
   return (
     <div className="p-4 md:p-6">
-   <h2 className="text-3xl font-semibold text-primary mb-6">
-  Request Company Assets
-</h2>
-
+      <h2 className="text-3xl font-semibold text-primary mb-6">
+        Request Company Assets
+      </h2>
 
       {/*  Asset Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -134,11 +133,26 @@ const RequestAsset = () => {
                     Requested
                   </button>
                 )}
-                {status === "approved" && (
+
+                {status === "approved" &&
+                  (asset.availableQuantity > 0 ? (
+                    <button
+                      className="btn btn-primary btn-sm"
+                      onClick={() => setSelectedAsset(asset)}
+                    >
+                      Request Again
+                    </button>
+                  ) : (
+                    <button className="btn btn-warning btn-sm" disabled>
+                      Approved
+                    </button>
+                  ))}
+
+                {/* {status === "approved" && (
                   <button className="btn btn-warning btn-sm" disabled>
                     Approved
                   </button>
-                )}
+                )} */}
 
                 {status === "rejected" && (
                   <button

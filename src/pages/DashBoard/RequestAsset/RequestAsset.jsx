@@ -38,14 +38,33 @@ const RequestAsset = () => {
     },
   });
   //2:
-  const getRequestStatusByAssetId = (requestAssetId) => {
-    const request = requestCollectionData.find(
-      (req) => req.assetId === requestAssetId
-    );
+  //old vabe status get
+  // const getRequestStatusByAssetId = (requestAssetId) => {
+  //   const request = requestCollectionData.find(
+  //     (req) => req.assetId === requestAssetId
+  //   );
 
-    //ame only "requestStatus" return korbo jodi request thake,na thakle null return korbo
-    return request?.requestStatus || null;
-  };
+  //   //ame only "requestStatus" return korbo jodi request thake,na thakle null return korbo
+  //   return request?.requestStatus || null;
+  // };
+
+  //new vabe status get:
+  const getRequestStatusByAssetId = (requestAssetId) => {
+  const requests = requestCollectionData.filter(
+    (req) => req.assetId === requestAssetId
+  );
+
+  if (requests.length === 0) return null;
+
+  const latestRequest = requests.reduce((latest, current) => {
+    return new Date(current.requestDate) > new Date(latest.requestDate)
+      ? current
+      : latest;
+  });
+
+  return latestRequest.requestStatus || null;
+};
+
   //3:
 
   //  Submit asset request function handler:
@@ -106,7 +125,7 @@ const RequestAsset = () => {
                 <img
                   src={asset.productImage}
                   alt={asset.productName}
-                  className="h-40 w-full object-cover rounded-lg"
+                  className="h-40 w-full  rounded-lg"
                 />
               </figure>
 

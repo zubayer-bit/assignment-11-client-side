@@ -83,7 +83,7 @@ const handleReject = async (request) => {
         `/hr/asset-requests/reject/${request._id}`
       );
 
-      if (res.data.success) {
+      if (res.data.result?.modifiedCount > 0) {
         Swal.fire("Rejected!", res.data.message, "success");
         refetch();
       } else {

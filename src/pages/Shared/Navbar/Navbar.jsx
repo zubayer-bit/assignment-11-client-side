@@ -131,9 +131,9 @@ const Navbar = () => {
               )}
               {/* employee dashboard */}
               {role === "employee" && (
-                <li>
+                <ul>
                   <NavLink
-                    to="/dashboard/request-asset"
+                    to="/dashboard/employeeAssetList"
                     className={({ isActive }) =>
                       `flex items-center gap-2 px-3 border py-2 rounded-md font-semibold transition
                  ${
@@ -146,7 +146,7 @@ const Navbar = () => {
                     
                     <span>Employee Dashboard</span>
                   </NavLink>
-                </li>
+                </ul>
               )}
 
               {/* HR Menu */}

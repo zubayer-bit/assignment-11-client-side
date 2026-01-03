@@ -181,6 +181,15 @@ const RequestAsset = () => {
                     Request Again
                   </button>
                 )}
+                {status === "returned" && (
+                  <button
+                    className="btn btn-primary btn-sm"
+                    onClick={() => setSelectedAsset(asset)}
+                  >
+                    Request Again
+                  </button>
+                )}
+             
 
                 {!status && (
                   <button

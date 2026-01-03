@@ -157,7 +157,7 @@ const DashboardLayout = () => {
               <>
                 <li>
                   <NavLink
-                    to={"/employeeDashboard"}
+                    to={"/dashboard/employeeAssetList"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="My Assets"
                   >
@@ -184,7 +184,7 @@ const DashboardLayout = () => {
 
                 <li>
                   <NavLink
-                    to={"/employeeDashboard/my-team"}
+                    to={"/dashboard/my-team"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="My Team"
                   >

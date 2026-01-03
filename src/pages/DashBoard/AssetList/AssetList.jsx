@@ -236,7 +236,7 @@ const result = await Swal.fire({
               <th>Quantity</th>
               <th>Available Quantity</th>
               <th>Date Added</th>
-              {/* <th>UpdatedAt</th> */}
+              <th>Direct Assign Asset</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -291,15 +291,23 @@ const result = await Swal.fire({
                   {new Date(asset.dateAdded).toLocaleDateString()}
                 </td>
 
-                {/* updatedAt */}
-                {/* <td className="whitespace-nowrap">
-                  {new Date(asset.updatedAt).toLocaleDateString()}
-                </td> */}
+                {/* Direct Assign Asset */}
+                <td className="whitespace-nowrap ">
+                   <button
+                    onClick={() => directAssignModal(asset)}
+                    className="btn btn-sm btn-outline btn-success  tooltip"
+                    data-tip="Assign Asset"
+                  >
+                    
+                      <FaUserCheck className="text-lg" />
+                    
+                  </button>
+                </td>
 
                 {/* Actions */}
                 <td className="flex gap-2 flex-col sm:flex-row">
                   {/* direct assign */}
-                  <button
+                  {/* <button
                     onClick={() => directAssignModal(asset)}
                     className="btn btn-sm btn-outline btn-success tooltip"
                     data-tip="Direct Assign Asset"
@@ -307,7 +315,7 @@ const result = await Swal.fire({
                     <NavLink>
                       <FaUserCheck className="text-lg" />
                     </NavLink>
-                  </button>
+                  </button> */}
 
                   {/* Edit Asset */}
                   <button

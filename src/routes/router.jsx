@@ -13,6 +13,9 @@ import EditAsset from "../pages/DashBoard/EditAsset/EditAsset";
 import RequestAsset from "../pages/DashBoard/RequestAsset/RequestAsset";
 import EmployeeRoutes from "./EmployeeRoutes";
 import AllRequests from "../pages/DashBoard/AllRequests/AllRequests";
+import MyEmployees from "../pages/DashBoard/MyEmployees/MyEmployees";
+import EmployeeAssetList from "../pages/DashBoard/EmployeeAssetList/EmployeeAssetList";
+import MyTeam from "../pages/DashBoard/MyTeam/MyTeam";
 
 export const router = createBrowserRouter([
   // Auth Layout:
@@ -87,6 +90,15 @@ export const router = createBrowserRouter([
         </HrRoute>
       },
 
+      //employee list
+       {
+        path: "employee-list",
+        element:
+        <HrRoute>
+        <MyEmployees></MyEmployees>
+        </HrRoute>
+      },
+
 
 
 
@@ -96,6 +108,20 @@ export const router = createBrowserRouter([
         element:
         <EmployeeRoutes>
           <RequestAsset></RequestAsset>
+        </EmployeeRoutes>
+      },
+      {
+        path: "employeeAssetList",
+        element:
+        <EmployeeRoutes>
+          <EmployeeAssetList></EmployeeAssetList>
+        </EmployeeRoutes>
+      },
+      {
+        path: "my-team",
+        element:
+        <EmployeeRoutes>
+          <MyTeam></MyTeam>
         </EmployeeRoutes>
       }
     ],

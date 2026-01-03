@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from "framer-motion";
 import { FaFacebookF, FaLinkedinIn, FaGithub, FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router";

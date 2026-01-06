@@ -121,7 +121,7 @@ const handleReject = async (request) => {
             <tr>
               <th>Employee</th>
               <th>Asset</th>
-              <th className="hidden md:table-cell">Date</th>
+              <th className="hidden md:table-cell">Request Date</th>
               <th>Status</th>
               <th className="text-center">Actions</th>
             </tr>

@@ -2,6 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAuthSecure";
 import { motion } from "framer-motion";
+import { Building2, Users, Cake } from "lucide-react";
+
+
 
 const BirthdayCakeIcon = () => (
   <svg
@@ -24,7 +27,7 @@ const MyTeam = () => {
   const axiosSecure = useAxiosSecure();
   const [selectedCompany, setSelectedCompany] = useState("");
 
-  // Get companies
+  // Companies
   const { data: companies = [] } = useQuery({
     queryKey: ["myCompanies"],
     queryFn: async () => {
@@ -33,7 +36,7 @@ const MyTeam = () => {
     },
   });
 
-  // Get team (only when company selected)
+  // Team
   const { data: team = [] } = useQuery({
     queryKey: ["myTeam", selectedCompany],
     enabled: !!selectedCompany,
@@ -45,8 +48,8 @@ const MyTeam = () => {
     },
   });
 
-  // Upcoming birthdays
-  const { data: birthdays = [] } = useQuery({
+  // Birthdays
+  const { data: birthdays = [], isLoading } = useQuery({
     queryKey: ["upcomingBirthdays"],
     queryFn: async () => {
       const res = await axiosSecure.get("/upcoming-birthdays/employee");
@@ -54,71 +57,88 @@ const MyTeam = () => {
     },
   });
 
+
+
+
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       {/* Header */}
-      <h2 className="text-3xl font-bold text-primary mb-6">My Team</h2>
+      <h2 className="text-2xl md:text-3xl font-bold text-primary mb-6">
+        My Team
+      </h2>
 
       {/* Company Select */}
       <select
-        className="select select-bordered mb-6 w-full max-w-xs"
+        className="select select-bordered select-warning w-full max-w-sm mb-8 border-amber-300"
         value={selectedCompany}
         onChange={(e) => setSelectedCompany(e.target.value)}
       >
-        <option value="" disabled>
-          Select Company Name
+        <option value="" disabled className="text-secondary">
+          Select Company
         </option>
         {companies.map((c) => (
-          <option key={c} value={c}>
+          <option key={c} value={c} className="text-primary">
             {c}
           </option>
         ))}
       </select>
 
-      {/* Team Section */}
+    
+
+      {/* TEAM SECTION */}
       {!selectedCompany ? (
+        
+      
+        
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col items-center justify-center mt-10 text-center"
+        //   className="border border-dashed rounded-xl p-10 text-center bg-base-100"
+        className="border border-dashed border-orange-400 hover:border-orange-500 transition-colors duration-200 rounded-xl p-10 text-center bg-base-100"
+
         >
-          <img
-            src="https://i.ibb.co/1tqX4CVF/Chat-GPT-Image-Jan-3-2026-11-12-20-AM.jpg"
-            alt="Select Company"
-            className="w-190 mb-4"
-          />
-          <p className="text-secondary text-lg">
-            Please select a company to view your team
+            
+          <div className="flex justify-center mb-4">
+            <Building2 size={48} className="text-primary" />
+          </div>
+          <h3 className="text-xl font-semibold mb-2">
+            Select a Company
+          </h3>
+          <p className="text-secondary max-w-md mx-auto">
+            Choose a company from the dropdown to view your colleagues
+            and team members associated with that organization.
           </p>
         </motion.div>
-      ) : team.length === 0 ? (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mt-10 text-secondary"
-        >
-          No team members found
-        </motion.div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+       
+      ) :
+
+
+       team.length === 0 ? (
+        <div className="text-center text-secondary mt-10">
+          {/* No team members found */}
+           <span className="loading loading-dots loading-sm text-secondary"></span>
+        </div>
+      ) 
+
+      :
+      
+      (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {team.map((member, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              whileHover={{ scale: 1.05 }}
-              className="card bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 shadow-lg rounded-xl p-5"
+              whileHover={{ y: -6 }}
+              className="rounded-xl  bg-gradient-to-br from-indigo-50 via-white to-pink-50 shadow-md"
             >
-              <div className="flex flex-col items-center text-center">
+              <div className="p-6 flex flex-col items-center text-center">
                 <img
                   src={member.photo || "/avatar.png"}
-                  className="w-20 h-20 rounded-full mb-3 border-2 border-indigo-500"
+                  className="w-20 h-20 rounded-full border-2 border-amber-200 mb-3"
+                  alt={member.name}
                 />
-                <h3 className="font-semibold text-lg text-gray-800">
-                  {member.name}
-                </h3>
-                <p className="text-sm text-gray-600">{member.email}</p>
-                <span className="badge badge-outline mt-2 bg-indigo-50 text-indigo-700">
+                <h3 className="font-semibold text-lg text-orange-400">{member.name}</h3>
+                <p className="text-sm text-secondary">{member.email}</p>
+                <span className="mt-3 px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">
                   {member.position}
                 </span>
               </div>
@@ -127,31 +147,47 @@ const MyTeam = () => {
         </div>
       )}
 
-      {/* Upcoming Birthdays */}
-      <div className="mt-12">
-        <h3 className="text-xl font-semibold text-primary mb-4">
-          🎉 Upcoming Birthdays ({birthdays.length})
-        </h3>
+       
 
-        {birthdays.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center text-center mt-6"
-          >
-            <img
-              src="https://i.ibb.co/PvzD93QY/Chat-GPT-Image-Jan-3-2026-11-17-35-AM.jpg"
-              alt="No Birthday"
-              className="w-64 mb-4"
-            />
-            <p className="text-secondary text-lg">
-              No upcoming birthdays this month
-            </p>
-          </motion.div>
-        ) : (
-          <div className="flex flex-wrap gap-6">
-            {birthdays.map((b, i) => (
-              <motion.div
+
+      {/* UPCOMING BIRTHDAYS */}
+     
+
+      {/* new vabe with "loading" */}
+      <div className="mt-14">
+  <h3 className="text-xl font-semibold mb-5 flex items-center gap-2 text-secondary">
+    <Cake className="text-pink-500" />
+    Upcoming Birthdays
+  </h3>
+
+  {/* 1️: Loading */}
+  {isLoading && (
+    <div className="flex justify-center py-10">
+      <span className="loading loading-dots loading-sm text-secondary"></span>
+    </div>
+  )}
+
+  {/* 2️: Data loaded kinto empty */}
+  {/* ai line mane data asche but empty...rr data asuk ba empty asuk..jetai asuk tokhn "isLoading" off hoa jabe */}
+  {!isLoading && birthdays.length === 0 && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="border border-dashed border-orange-400 rounded-xl p-8 text-center"
+    >
+      <Cake size={40} className="mx-auto text-secondary mb-3" />
+      <p className="text-secondary">
+        No upcoming birthdays this month
+      </p>
+    </motion.div>
+  )}
+
+  {/* 3️:Data thakle*/}
+  {!isLoading && birthdays.length > 0 && (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {birthdays.map((b, i) => (
+       
+         <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -162,13 +198,13 @@ const MyTeam = () => {
                   className="w-16 h-16 rounded-full object-cover border-2 border-pink-400"
                 />
                 <div className="flex flex-col">
-                  <p className="font-semibold text-lg text-gray-800">
+                  <p className="font-semibold text-lg  text-orange-400">
                     {b.name}
                   </p>
-                  <p className="text-sm text-gray-600 flex items-center gap-2">
+                  <p className="text-sm  flex items-center gap-2 text-secondary">
                     Birthday:
                     <motion.span
-                      animate={{ scale: [1, 1.3, 1] }}
+                      animate={{ scale: [1, 1.1, 1] }}
                       transition={{
                         repeat: Infinity,
                         duration: 2,
@@ -176,21 +212,37 @@ const MyTeam = () => {
                       }}
                       className="inline-flex items-center gap-1"
                     >
-                      <BirthdayCakeIcon />
-                      <span className="text-indigo-600 font-medium text-md">
+                    
+                      <Cake size={14} />
+                      {/* <span className="text-indigo-600 font-medium text-md">
                         {new Date(b.dateOfBirth).toLocaleDateString(undefined, {
                           month: "short",
                           day: "numeric",
                         })}
-                      </span>
+                      </span> */}
+
+                      {/* new vabe */}
+                      <span className="text-indigo-600 font-medium text-md">
+  {new Date(
+    new Date(b.dateOfBirth).setHours(0, 0, 0, 0) // 12:00 AM
+  ).toLocaleString(undefined, {
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  })}
+</span>
+
                     </motion.span>
                   </p>
                 </div>
               </motion.div>
-            ))}
-          </div>
-        )}
-      </div>
+      ))}
+    </div>
+  )}
+</div>
+
     </div>
   );
 };

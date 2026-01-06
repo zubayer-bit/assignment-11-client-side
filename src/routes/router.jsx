@@ -16,6 +16,8 @@ import AllRequests from "../pages/DashBoard/AllRequests/AllRequests";
 import MyEmployees from "../pages/DashBoard/MyEmployees/MyEmployees";
 import EmployeeAssetList from "../pages/DashBoard/EmployeeAssetList/EmployeeAssetList";
 import MyTeam from "../pages/DashBoard/MyTeam/MyTeam";
+import EmployeeProfile from "../pages/DashBoard/EmployeeProfile/EmployeeProfile";
+import HRProfile from "../pages/DashBoard/HRProfile/HRProfile";
 
 export const router = createBrowserRouter([
   // Auth Layout:
@@ -99,6 +101,15 @@ export const router = createBrowserRouter([
         </HrRoute>
       },
 
+      // hr profile page
+       {
+        path: "hrProfile",
+        element:
+        <HrRoute>
+        <HRProfile></HRProfile>
+        </HrRoute>
+      },
+
 
 
 
@@ -122,6 +133,13 @@ export const router = createBrowserRouter([
         element:
         <EmployeeRoutes>
           <MyTeam></MyTeam>
+        </EmployeeRoutes>
+      },
+      {
+        path: "profile",
+        element:
+        <EmployeeRoutes>
+          <EmployeeProfile></EmployeeProfile>
         </EmployeeRoutes>
       }
     ],

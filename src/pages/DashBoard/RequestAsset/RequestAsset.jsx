@@ -135,6 +135,9 @@ const RequestAsset = () => {
                 <h3 className="text-lg font-semibold text-primary">
                   {asset.productName}
                 </h3>
+                <h3 className="text-lg font-semibold text-primary">
+                 Company: {asset.companyName}
+                </h3>
 
                 <p className="text-secondary text-sm">
                   Type:

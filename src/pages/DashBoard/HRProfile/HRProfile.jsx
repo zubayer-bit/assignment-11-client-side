@@ -82,7 +82,7 @@ const HRProfile = () => {
       <motion.div
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
-        className="bg-base-100 shadow rounded-xl p-6"
+        className="bg-base-100 shadow rounded-xl p-6 border-2  border-b-fuchsia-600 border-r-cyan-500 border-t-pink-600 border-l-yellow-500"
       >
         <img
           src={user?.profileImage || "/avatar.png"}

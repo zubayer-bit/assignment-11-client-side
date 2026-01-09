@@ -18,6 +18,9 @@ import EmployeeAssetList from "../pages/DashBoard/EmployeeAssetList/EmployeeAsse
 import MyTeam from "../pages/DashBoard/MyTeam/MyTeam";
 import EmployeeProfile from "../pages/DashBoard/EmployeeProfile/EmployeeProfile";
 import HRProfile from "../pages/DashBoard/HRProfile/HRProfile";
+import HrPackageUpgrade from "../pages/DashBoard/HrPackageUpgrade/HrPackageUpgrade";
+import PaymentSuccess from "../pages/DashBoard/Payment/PaymentSuccess";
+import PaymentCancelled from "../pages/DashBoard/Payment/PaymentCancelled";
 
 export const router = createBrowserRouter([
   // Auth Layout:
@@ -26,7 +29,8 @@ export const router = createBrowserRouter([
     Component: Root,
     children: [
       {
-        path: "/",
+        // path: "/",
+        index: true,
         Component: Home,
       },
       //hr register:
@@ -98,6 +102,34 @@ export const router = createBrowserRouter([
         element:
         <HrRoute>
         <MyEmployees></MyEmployees>
+        </HrRoute>
+      },
+      //upgrade-package (hr)
+       {
+        path: "upgrade-package",
+        element:
+        <HrRoute>
+        <HrPackageUpgrade></HrPackageUpgrade>
+        </HrRoute>
+      },
+
+      //payment success hole ai page aa auto chole jabe
+      {
+        path: "payment-success",
+        // Component: PaymentSuccess,
+         element:
+        <HrRoute>
+        <PaymentSuccess></PaymentSuccess>
+        </HrRoute>
+
+      },
+      // payment cencelled hole,ai page aa auto chole jabe:
+      {
+        path: "payment-cancelled",
+        // Component: PaymentCancelled,
+         element:
+        <HrRoute>
+        <PaymentCancelled></PaymentCancelled>
         </HrRoute>
       },
 

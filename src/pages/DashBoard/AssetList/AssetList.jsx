@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
-import useAuthSecure from "../../../hooks/useAuthSecure";
+// import useAuthSecure from "../../../hooks/useAuthSecure";
 import { motion } from "framer-motion";
 
 import { useQuery } from "@tanstack/react-query";
@@ -8,6 +8,7 @@ import { FaEdit, FaTrash, FaUserCheck } from "react-icons/fa";
 import { NavLink } from "react-router";
 // import { a } from "framer-motion/client";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAuthSecure";
 
 //--------------------search code:1
 /* ========= HIGHLIGHT FUNCTION (ADD THIS) ========= */
@@ -31,7 +32,8 @@ const highlightText = (text, searchText) => {
 
 const AssetList = () => {
   const { user } = useAuth();
-  const axiosSecure = useAuthSecure();
+  // const axiosSecure = useAuthSecure();
+  const axiosSecure = useAxiosSecure();
 
   const [loading, setLoading] = useState(true);
   const [searchText, setSearchText] = useState("");

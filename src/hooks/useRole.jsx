@@ -1,11 +1,13 @@
 import React from "react";
-import useAuthSecure from "./useAuthSecure";
+// import useAuthSecure from "./useAuthSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
+import useAxiosSecure from "./useAuthSecure";
 
 const useRole = () => {
   const { user } = useAuth();
-  const axiosSecure = useAuthSecure();
+  // const axiosSecure = useAuthSecure();
+  const axiosSecure = useAxiosSecure();
 
   //jodi 'role' ar moddhe kono value na ase,tahole by default value hobe-->'user'...rr server side theke jodi "role" ar onno kono value ase,seta tokhon role ar moddhe set hoa jabe...default value problem korbe na...
   //server side aa user ar "email" send kore oi user ar data "get" korbo...data-base theke

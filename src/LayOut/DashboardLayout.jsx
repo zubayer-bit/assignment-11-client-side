@@ -1,13 +1,6 @@
 import React from "react";
-import { FaListAlt, FaMotorcycle, FaUserCircle, FaUsers, FaWarehouse } from "react-icons/fa";
-import {
-  MdAccountCircle,
-  MdGroups,
-  MdOutlineAddCircle,
-  MdOutlineAdminPanelSettings,
-  MdOutlineDirectionsBike,
-  MdPostAdd,
-} from "react-icons/md";
+import { FaCrown, FaListAlt, FaUserCircle, FaUsers } from "react-icons/fa";
+import { MdAccountCircle, MdGroups, MdPostAdd } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
 import useRole from "../hooks/useRole";
 import { FaBoxesStacked } from "react-icons/fa6";
@@ -75,7 +68,6 @@ const DashboardLayout = () => {
             </li>
 
             {/* dashboard home */}
-           
 
             {/* our dashboard links */}
 
@@ -138,6 +130,20 @@ const DashboardLayout = () => {
 
                 <li>
                   <NavLink
+                    to={"/dashboard/upgrade-package"}
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Upgrade Package"
+                  >
+                    <FaCrown />
+
+                    <span className="is-drawer-close:hidden text-secondary">
+                      Upgrade Package
+                    </span>
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink
                     to={"/dashboard/hrProfile"}
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="Profile"
@@ -163,9 +169,7 @@ const DashboardLayout = () => {
                   >
                     <FaListAlt size={11} />
 
-                    <span className="is-drawer-close:hidden">
-                      My Assets
-                    </span>
+                    <span className="is-drawer-close:hidden">My Assets</span>
                   </NavLink>
                 </li>
                 <li>
@@ -190,9 +194,7 @@ const DashboardLayout = () => {
                   >
                     <MdGroups />
 
-                    <span className="is-drawer-close:hidden">
-                      My Team
-                    </span>
+                    <span className="is-drawer-close:hidden">My Team</span>
                   </NavLink>
                 </li>
 
@@ -204,9 +206,7 @@ const DashboardLayout = () => {
                   >
                     <MdAccountCircle />
 
-                    <span className="is-drawer-close:hidden">
-                     Profile
-                    </span>
+                    <span className="is-drawer-close:hidden">Profile</span>
                   </NavLink>
                 </li>
               </>

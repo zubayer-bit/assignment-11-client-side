@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 // import useAuthSecure from "../../../hooks/useAuthSecure";
 import { motion } from "framer-motion";
@@ -9,6 +9,8 @@ import { NavLink } from "react-router";
 // import { a } from "framer-motion/client";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAuthSecure";
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
 //--------------------search code:1
 /* ========= HIGHLIGHT FUNCTION (ADD THIS) ========= */
@@ -45,6 +47,11 @@ const AssetList = () => {
   //react ar moddhe modal ar jonno amra "ref" use kori:
   const employeeModalRef = useRef();
 
+  //pagination ar code kora holo:1
+  const [page, setPage] = useState(1);
+const limit = 10;
+
+
   //direct asset assign------ **direct assign code***--------:2
   //4:(affiliated employee get korar code)
   const {
@@ -61,23 +68,51 @@ const AssetList = () => {
   });
 
   //-------------------------------asset get korar code:
-  const {
-    data: assets = [],
-    refetch,
-    isFetching,
-  } = useQuery({
-    queryKey: ["assets", user?.email, searchText],
-    queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/assets?email=${user.email}&searchText=${searchText}`
-      );
-      setLoading(false);
-      return res.data;
-    },
-    enabled: !!user?.email,
-  });
 
-  if (loading) {
+  // const {
+  //   data: assets = [],
+  //   refetch,
+  //   isFetching,
+  // } = useQuery({
+  //   queryKey: ["assets", user?.email, searchText],
+  //   queryFn: async () => {
+  //     const res = await axiosSecure.get(
+  //       `/assets?email=${user.email}&searchText=${searchText}`
+  //     );
+  //     setLoading(false);
+  //     return res.data;
+  //   },
+  //   enabled: !!user?.email,
+  // });
+
+ 
+
+  //ai code aa pagination add kora holo:2
+  const {
+  data = { assets: [], total: 0, totalPages: 1 },
+  refetch,
+  isFetching,
+} = useQuery({
+  queryKey: ["assets", user?.email, searchText, page],
+  queryFn: async () => {
+    const res = await axiosSecure.get(
+      `/assets?email=${user.email}&searchText=${searchText}&page=${page}&limit=${limit}`
+    );
+    setLoading(false);
+    return res.data;
+  },
+  enabled: !!user?.email,
+});
+
+const { assets, totalPages } = data;
+
+
+
+
+
+//------------
+
+ if (loading) {
     return (
       <div className="flex justify-center items-center h-[60vh]">
         <span className="loading loading-spinner loading-lg text-primary"></span>
@@ -220,7 +255,11 @@ const result = await Swal.fire({
           <input
             type="search"
             value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={(e) => {
+    setSearchText(e.target.value);
+    setPage(1); 
+  }}
+            
             placeholder="Search"
           />
         </label>
@@ -321,7 +360,7 @@ const result = await Swal.fire({
 
                   {/* Edit Asset */}
                   <button
-                    className="btn btn-sm btn-outline btn-primary tooltip"
+                    className="btn btn-sm btn-outline btn-primary tooltip tooltip-left"
                     data-tip="Edit Asset"
                   >
                     <NavLink to={`/dashboard/assets/edit/${asset._id}`}>
@@ -332,7 +371,7 @@ const result = await Swal.fire({
                   {/* Delete Asset */}
                   <button
                     onClick={() => handlerDelete(asset._id)}
-                    className="btn btn-sm btn-outline btn-error tooltip"
+                    className="btn btn-sm btn-outline btn-error tooltip tooltip-left"
                     data-tip="Delete Asset"
                   >
                     <FaTrash />
@@ -345,7 +384,7 @@ const result = await Swal.fire({
             {/* Loading state */}
             {isFetching && (
               <tr>
-                <td colSpan="6" className="text-center py-6">
+                <td colSpan="9" className="text-center py-6">
                   <span className="loading loading-dots loading-sm text-primary"></span>
                 </td>
               </tr>
@@ -354,7 +393,7 @@ const result = await Swal.fire({
             {/* Empty state */}
             {!isFetching && assets.length === 0 && (
               <tr>
-                <td colSpan="6" className="text-center py-6 text-secondary">
+                <td colSpan="9" className="text-center py-6 text-secondary">
                   No assets found.
                 </td>
               </tr>
@@ -363,6 +402,37 @@ const result = await Swal.fire({
         </table>
       </div>
 
+            {/* pagination ar button :3 */}
+            {/* Pagination */}
+<div className="flex justify-center mt-6 gap-2 flex-wrap">
+  <button
+    className="btn btn-sm"
+    disabled={page === 1}
+    onClick={() => setPage(page - 1)}
+  >
+    Previous
+  </button>
+
+  {[...Array(totalPages).keys()].map((num) => (
+    <button
+      key={num}
+      onClick={() => setPage(num + 1)}
+      className={`btn btn-sm ${
+        page === num + 1 ? "btn-primary" : "btn-outline"
+      }`}
+    >
+      {num + 1}
+    </button>
+  ))}
+
+  <button
+    className="btn btn-sm"
+    disabled={page === totalPages}
+    onClick={() => setPage(page + 1)}
+  >
+    Next
+  </button>
+</div>
 
 
 
@@ -397,7 +467,7 @@ const result = await Swal.fire({
               <tbody>
                 {affiliationsEmployee.length === 0 ? (
                   <tr>
-                    <td colSpan="6" className="text-center text-gray-500 py-6">
+                    <td colSpan="9" className="text-center text-gray-500 py-6">
                       No affiliated employees found
                     </td>
                   </tr>

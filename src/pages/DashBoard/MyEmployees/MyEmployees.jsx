@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const MyEmployees = () => {
   const axiosSecure = useAxiosSecure();
 
-  // employeeAffiliations collection থেকে employees
+  // employeeAffiliations collection theke employees
   const {
     data: employees = [],
     isLoading: employeesLoading,

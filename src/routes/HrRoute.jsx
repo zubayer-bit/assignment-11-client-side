@@ -12,7 +12,8 @@ const HrRoute = ({ children }) => {
   if (loading || roleLoading) {
     return (
       <div>
-        <span className="loading loading-spinner text-success"></span>
+        {/* <span className="loading loading-spinner text-success"></span> */}
+        <span className="loading loading-spinner text-blue-700 mr-2"></span>
       </div>
     );
   }

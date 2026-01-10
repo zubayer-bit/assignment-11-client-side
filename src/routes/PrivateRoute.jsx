@@ -13,8 +13,9 @@ const PrivateRoute = ({ children }) => {
   //jokhon user ar value thakbe na,tokhon "loading" kaj korbe
   if(loading){
     //mane jodi loading thake tahole akti loading return hobe...
-    return <div>
-        <span className="loading loading-spinner text-success"></span>
+    return <div className="text-center">
+        {/* <span className="loading loading-spinner text-success"></span> */}
+        <span className="loading loading-spinner text-blue-700 mr-2"></span>
     </div>
   }
 

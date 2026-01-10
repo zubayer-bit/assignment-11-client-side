@@ -63,8 +63,8 @@ const DashboardLayout = () => {
         {/* loading ar code */}
          {showLoading && (
         <div className="fixed w-full h-full flex justify-center items-center bg-white/80 z-50">
-          <span className="loading loading-spinner text-green-500 mr-2"></span>
-          <span className="text-green-800 font-medium">Loading...</span>
+          <span className="loading loading-spinner text-blue-700 mr-2"></span>
+          <span className="text-secondary font-medium">Loading...</span>
         </div>
       )}
         {/* Page content here */}

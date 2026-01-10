@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaCrown, FaListAlt, FaUserCircle, FaUsers } from "react-icons/fa";
 import { MdAccountCircle, MdGroups, MdPostAdd } from "react-icons/md";
-import { Link, NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet, useMatches, useNavigation } from "react-router";
 import useRole from "../hooks/useRole";
 import { FaBoxesStacked } from "react-icons/fa6";
 import { BsBoxSeam } from "react-icons/bs";
@@ -10,6 +10,20 @@ import { AiOutlineInbox, AiOutlinePlusCircle } from "react-icons/ai";
 const DashboardLayout = () => {
   //useRole hook use kora holo:-->ata "role" ar hook
   const { role } = useRole();
+
+  //title ar code:
+  const matches = useMatches();
+
+  //loading ar code:
+  const navigation = useNavigation();
+  const showLoading = navigation.state === "loading";
+
+   // Tab title update
+  useEffect(() => {
+    const lastMatch = matches.at(-1);
+    const routeTitle = lastMatch?.handle?.title;
+    document.title = routeTitle || "Dashboard | AssetVerse";
+  }, [matches]);
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -45,6 +59,14 @@ const DashboardLayout = () => {
             <span className="text-2xl font-medium">Dashboard</span>
           </div>
         </nav>
+
+        {/* loading ar code */}
+         {showLoading && (
+        <div className="fixed w-full h-full flex justify-center items-center bg-white/80 z-50">
+          <span className="loading loading-spinner text-green-500 mr-2"></span>
+          <span className="text-green-800 font-medium">Loading...</span>
+        </div>
+      )}
         {/* Page content here */}
         <Outlet></Outlet>
       </div>

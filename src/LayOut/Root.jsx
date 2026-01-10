@@ -22,7 +22,7 @@ const Root = () => {
 
       {/* Page-to-page loading spinner */}
       {showLoading && (
-        <div className="fixed top-0 left-0 w-full flex justify-center items-center bg-white/80 backdrop-blur-sm py-3 z-50 transition-opacity duration-300">
+        <div className="fixed  w-full flex justify-center items-center bg-white/80 backdrop-blur-sm py-3 z-50 transition-opacity duration-300">
           <span className="loading loading-spinner text-green-500 mr-2"></span>
           <span className="text-green-800 font-medium">Loading...</span>
         </div>

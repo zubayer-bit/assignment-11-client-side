@@ -19,7 +19,7 @@ const PackagesSection = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center text-secondary py-10">
-        <span className="loading loading-dots loading-sm"></span>
+       <span className="loading loading-spinner loading-lg text-primary"></span>
       </div>
     );
   }

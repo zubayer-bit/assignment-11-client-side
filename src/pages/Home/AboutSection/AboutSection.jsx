@@ -54,11 +54,14 @@ const AboutSection = () => {
             Streamline your asset management and empower your workforce with
             smart tools.
           </p>
+
         </motion.div>
 
         {/* Benefits Grid */}
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+
           {benefits.map((benefit, index) => (
+            
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}

@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxios from "../../../hooks/useAxios";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
 
 const Register = () => {
   //handleSubmit: form submit korar jonno ei method use kora hoy...atar moddhe amra "function ta set kore rakhbo" ja form submit korar por call hobe...and value gulu dibe...
@@ -15,11 +16,11 @@ const Register = () => {
   } = useForm();
 
   //data receive from AuthProvider(useAuth)
-  const { registerUser, updateUserProfile, emailVarification, logOut,user } =
+  const { registerUser, updateUserProfile, emailVarification, logOut, user } =
     useAuth();
 
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
 
   const axios = useAxios(); //---->aita dea register ar ar data "post" korbo
 
@@ -45,7 +46,7 @@ const Register = () => {
     registerUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
-        //  const registeredUser = result.user;
+        const registeredUser = result.user;
 
         //new---start
         //           const formData1 = new FormData();
@@ -116,28 +117,36 @@ const Register = () => {
         });
 
         //sob kicu complete hole then home-page aa chole jabe:
-        // navigate(location.state || "/");
+        navigate(location.state || "/");
 
-        //         emailVarification(registeredUser)
-        //   .then(() => {
-        //     logOut();
-        //     Swal.fire(
-        //       "Verification email sent! Please verify your email before login."
-        //     );
-        //     reset();
-        //     navigate("/");
-        //   })
-        //   .catch((error) => {
-        //     console.error(error);
-        //     Swal.fire("Failed to send verification email");
-        //   });
+        emailVarification(registeredUser)
+          .then(() => {
+            logOut();
+            Swal.fire(
+              "Verification email sent! Please verify your email before login."
+            );
+            reset();
+            navigate("/");
+          })
+          .catch((error) => {
+            console.error(error);
+            Swal.fire("Failed to send verification email");
+          });
       })
       .catch((error) => {
         console.log(error);
+        setError(error.message);
       });
   };
   return (
-    <div className="card bg-base-100 w-full mx-auto max-w-sm shrink-0 shadow-2xl mt-15 p-3">
+    // <div className="card bg-base-100 w-full mx-auto max-w-sm shrink-0 shadow-2xl mt-15 p-3">
+
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="card bg-base-100 w-full mx-auto max-w-sm shrink-0 shadow-2xl mt-15 p-3"
+    >
       <h3 className="text-center text-2xl font-bold">
         Welcome to{" "}
         <span className="text-2xl font-bold">
@@ -284,22 +293,28 @@ const Register = () => {
           </div> */}
 
           {/* button */}
-          <button className="btn btn-primary mt-4">Register</button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="btn btn-primary mt-4 w-full"
+          >
+            Register
+          </motion.button>
         </fieldset>
 
-        <p>
+        <p className="text-center">
           Already have an account?{" "}
-          <span className="text-blue-600 font-medium underline">
+          <span className="text-primary font-medium underline">
             <Link state={location.state} to={"/login"}>
               Login
             </Link>
           </span>
         </p>
-      </form>
 
-      {/* google button */}
-      {/* <SocialLogin></SocialLogin> */}
-    </div>
+        {/* Error */}
+        {error && <p className="text-error mt-2 text-center">{error}</p>}
+      </form>
+    </motion.div>
   );
 };
 

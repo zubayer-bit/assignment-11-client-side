@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAxios from "../../../hooks/useAxios";
+import { motion } from "framer-motion";
+
 
 const Login = () => {
   //react-hook:
@@ -56,9 +58,25 @@ const Login = () => {
     //"form" ar email,password ke use kore user "login" korbo:----(firebase)-----(end)
   };
   return (
-    <div className="card bg-base-100 w-full mx-auto max-w-sm shrink-0 shadow-2xl p-3 mt-15">
-      <h3 className="text-center text-3xl">Welcome Back</h3>
-      <p className="text-center">Please Login</p>
+   
+
+
+    <motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  className="card bg-base-100 w-full mx-auto max-w-sm shrink-0 shadow-2xl p-3 mt-15"
+>
+
+
+
+      <h3 className="text-center text-3xl font-bold">
+    Welcome <span className="text-primary">Back</span>
+  </h3>
+
+  <p className="text-center text-secondary">
+    Please Login
+  </p>
       <form onSubmit={handleSubmit(handleLogin)} className="card-body">
         <fieldset className="fieldset">
           {/* email */}
@@ -98,22 +116,46 @@ const Login = () => {
           {/* <div>
             <a className="link link-hover">Forgot password?</a>
           </div> */}
-          <button className="btn btn-primary mt-4">Login</button>
+          
+           <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="btn btn-primary mt-4 w-full"
+      >
+        Login
+      </motion.button>
         </fieldset>
 
-        <p>
-          New to AssetVerse?{" "}
-          <span className="text-green-600 font-medium underline">
-            <Link to={"/register"} state={location.state}>
-              Register
-            </Link>
-          </span>
-        </p>
+
+         <p className="text-center mt-4">
+      New to{" "}
+      <span className="font-semibold text-primary">
+        Asset
+      </span>
+      <span className="font-semibold text-secondary">
+        Verse
+      </span>
+      ?{" "}
+      <Link
+        to="/select-register-page"
+        state={location.state}
+        className="text-primary font-medium underline"
+      >
+        Register
+      </Link>
+    </p>
       </form>
 
-      {/* google button */}
-      {/* <SocialLogin></SocialLogin> */}
-    </div>
+   
+
+
+
+
+
+
+
+</motion.div>
+  
   );
 };
 

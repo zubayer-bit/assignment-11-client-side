@@ -47,16 +47,44 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex gap-6 font-medium">
-          <NavLink to="/" className="hover:text-primary">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `transition-colors duration-300 px-1 pb-1 ${
+                isActive
+                  ? "text-primary border-b-2 border-primary"
+                  : "hover:text-primary hover:border-b-2 hover:border-primary"
+              }`
+            }
+          >
             Home
           </NavLink>
 
           {!user && (
             <>
-              <NavLink to="/employee-register" className="hover:text-primary">
+              <NavLink
+                to="/employee-register"
+                className={({ isActive }) =>
+                  `transition-colors duration-300 px-1 pb-1 ${
+                    isActive
+                      ? "text-primary border-b-2 border-primary"
+                      : "hover:text-primary hover:border-b-2 hover:border-primary"
+                  }`
+                }
+              >
                 Join as Employee
               </NavLink>
-              <NavLink to="/hr-register" className="hover:text-primary">
+
+              <NavLink
+                to="/hr-register"
+                className={({ isActive }) =>
+                  `transition-colors duration-300 px-1 pb-1 ${
+                    isActive
+                      ? "text-primary border-b-2 border-primary"
+                      : "hover:text-primary hover:border-b-2 hover:border-primary"
+                  }`
+                }
+              >
                 Join as HR Manager
               </NavLink>
             </>
@@ -66,9 +94,16 @@ const Navbar = () => {
         {/* Right Side */}
         <div className="flex items-center gap-3">
           {!user ? (
-            <Link to="/login" className="btn btn-primary btn-sm">
-              Login
-            </Link>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="inline-block" // inline-block preserve kore button size tikh thakbe
+            >
+              <Link to="/login" className="btn btn-primary btn-sm">
+                Login
+              </Link>
+            </motion.div>
           ) : (
             <>
               {/* Profile Image */}
@@ -112,22 +147,21 @@ const Navbar = () => {
 
               {role === "hr" && (
                 <ul>
-                      <NavLink
-                  to="/dashboard"
-                  className={({ isActive }) =>
-                    `flex items-center gap-2 px-3 py-2 border rounded-md font-semibold transition
+                  <NavLink
+                    to="/dashboard"
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 px-3 py-2 border rounded-md font-semibold transition
                  ${
                    isActive
                      ? "bg-primary text-white"
                      : "hover:bg-primary/10 text-secondary"
                  }`
-                  }
-                >
-                  {/* <FaChartPie className="text-lg" /> */}
-                  <span>Hr Dashboard</span>
-                </NavLink>
+                    }
+                  >
+                    {/* <FaChartPie className="text-lg" /> */}
+                    <span>Hr Dashboard</span>
+                  </NavLink>
                 </ul>
-              
               )}
               {/* employee dashboard */}
               {role === "employee" && (
@@ -143,7 +177,6 @@ const Navbar = () => {
                  }`
                     }
                   >
-                    
                     <span>Employee Dashboard</span>
                   </NavLink>
                 </ul>
@@ -189,19 +222,28 @@ const Navbar = () => {
                     className="menu dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-56"
                   >
                     <li>
-                      <NavLink to="/hr/assets">Asset List</NavLink>
+                      <NavLink to="/dashboard">Asset List</NavLink>
                     </li>
                     <li>
-                      <NavLink to="/hr/add-asset">Add Asset</NavLink>
+                      <NavLink to="/dashboard/add-asset">Add Asset</NavLink>
                     </li>
                     <li>
-                      <NavLink to="/hr/requests">All Requests</NavLink>
+                      <NavLink to="/dashboard/all-requests">
+                        All Requests
+                      </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/hr/employees">Employee List</NavLink>
+                      <NavLink to="/dashboard/employee-list">
+                        Employee List
+                      </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/hr/profile">Profile</NavLink>
+                      <NavLink to="/dashboard/upgrade-package">
+                        Upgrade Package
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/dashboard/hrProfile">Profile</NavLink>
                     </li>
                     {/* <li className="border-t">
                       <button onClick={handleLogOut} className="text-error">
@@ -252,18 +294,22 @@ const Navbar = () => {
                     className="menu dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-56"
                   >
                     <li>
-                      <NavLink to="/employee/my-assets">My Assets</NavLink>
+                      <NavLink to="/dashboard/employeeAssetList">
+                        My Assets
+                      </NavLink>
                     </li>
+
                     <li>
-                      <NavLink to="/employee/my-team">My Team</NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/employee/request-asset">
-                        Request Asset
+                      <NavLink to="/dashboard/request-asset">
+                        Request an Asset
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/employee/profile">Profile</NavLink>
+                      <NavLink to="/dashboard/my-team">My Team</NavLink>
+                    </li>
+
+                    <li>
+                      <NavLink to="/dashboard/profile">Profile</NavLink>
                     </li>
                     {/* <li className="border-t">
                       <button onClick={handleLogOut} className="text-error">
@@ -275,13 +321,15 @@ const Navbar = () => {
               )}
 
               {/* logout btn */}
-              <div className="">
-                <button
+              <div>
+                <motion.button
                   onClick={handleLogOut}
-                  className="text-white btn btn-primary "
+                  className="text-white btn btn-primary"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   Logout
-                </button>
+                </motion.button>
               </div>
             </>
             // flex gap-3 add kora holo:
@@ -367,16 +415,44 @@ const Navbar = () => {
         animate={{ opacity: open ? 1 : 0 }}
         transition={{ duration: 0.3 }}
       >
-        <ul className="flex flex-col items-center gap-4 py-4">
-          <NavLink to="/" onClick={() => setOpen(false)}>
+        <ul className="flex flex-col items-center gap-4 py-4 ">
+          <NavLink
+            className={
+              "font-semibold hover:text-primary hover:border-b-2 hover:border-primary transition-colors duration-300"
+            }
+            to="/"
+            onClick={() => setOpen(false)}
+          >
             Home
           </NavLink>
 
           {!user && (
             <>
-              <NavLink to="/employee-register">Join as Employee</NavLink>
-              <NavLink to="/hr-register">Join as HR Manager</NavLink>
-              <NavLink to="/login">Login</NavLink>
+              <NavLink
+                className={
+                  "font-semibold hover:text-primary hover:border-b-2 hover:border-primary transition-colors duration-300"
+                }
+                to="/employee-register"
+              >
+                Join as Employee
+              </NavLink>
+              <NavLink
+                className={
+                  "font-semibold hover:text-primary hover:border-b-2 hover:border-primary transition-colors duration-300"
+                }
+                to="/hr-register"
+              >
+                Join as HR Manager
+              </NavLink>
+
+              <NavLink
+                className={
+                  "font-semibold hover:text-primary hover:border-b-2 hover:border-primary transition-colors duration-300"
+                }
+                to="/login"
+              >
+                Login
+              </NavLink>
             </>
           )}
         </ul>

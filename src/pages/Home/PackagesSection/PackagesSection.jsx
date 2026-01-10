@@ -15,58 +15,46 @@ const PackagesSection = () => {
     },
   });
 
-  // Motion variants
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const card = {
-    hidden: { opacity: 0, y: 20, scale: 0.95 },
-    show: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-    hover: { scale: 1.05, transition: { duration: 0.3, ease: "easeOut" } },
-  };
 
   if (isLoading) {
-    return <div className="flex justify-center text-secondary py-10">
-      <span className="loading loading-dots loading-sm "></span>
-    </div>;
+    return (
+      <div className="flex justify-center text-secondary py-10">
+        <span className="loading loading-dots loading-sm"></span>
+      </div>
+    );
   }
 
   return (
-    <section className="py-20 bg-base-200">
+    <section className="py-20">
       <div className="max-w-7xl mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-3 text-primary">Pricing Plans</h2>
-          <p className="text-gray-500 max-w-xl mx-auto text-secondary">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+         
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+            Pricing Plans
+          </h2>
+          <p className="text-lg md:text-xl text-secondary max-w-2xl mx-auto">
             Choose a plan that fits your company size and asset management
             needs.
           </p>
-        </div>
+        </motion.div>
 
         {/* Packages Grid */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={container}
-          initial="hidden"
-          animate="show"
+        
         >
-          {packages.map((pkg) => (
+          {packages.map((pkg,index) => (
             <motion.div
               key={pkg._id}
-              variants={card}
-              whileHover="hover"
+               initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 * index, duration: 0.6 }}
               className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col"
             >
               <div className="card-body flex flex-col flex-1">
@@ -92,13 +80,13 @@ const PackagesSection = () => {
                 </div>
 
                 {/* Features List */}
-                <ul className="space-y-3 flex-1">
+                <ul className="space-y-3 flex-1  ">
                   {pkg.features.map((feature, index) => (
                     <li
                       key={index}
-                      className="flex items-center gap-2 text-blue-500"
+                      className="flex items-center  gap-2 text-secondary"
                     >
-                      <FaCheckCircle className="text-success" />
+                      <FaCheckCircle className="text-primary" />
                       {feature}
                     </li>
                   ))}

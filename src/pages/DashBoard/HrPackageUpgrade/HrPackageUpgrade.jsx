@@ -35,7 +35,7 @@ const HrPackageUpgrade = () => {
 
     if (isLoading || hrLoading) {
     return <div className="flex justify-center text-secondary py-10">
-      <span className="loading loading-dots loading-sm "></span>
+     <span className="loading loading-spinner loading-lg text-primary"></span>
     </div>;
   }
 
@@ -176,9 +176,9 @@ const HrPackageUpgrade = () => {
                   {pkg.features.map((feature, index) => (
                     <li
                       key={index}
-                      className="flex items-center gap-2 text-blue-500"
+                      className="flex items-center gap-2 text-secondary"
                     >
-                      <FaCheckCircle className="text-success" />
+                      <FaCheckCircle className="text-primary" />
                       {feature}
                     </li>
                   ))}

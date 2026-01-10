@@ -19,7 +19,7 @@ const RequestAsset = () => {
   //request asset page aa available asset gulu load kora holo:
   const {
     data: assets = [],
-
+    isLoading
     // isFetching,
   } = useQuery({
     queryKey: ["assets"],
@@ -105,6 +105,16 @@ const RequestAsset = () => {
       }
     });
   };
+
+
+//-----------------------loading
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 md:p-6">

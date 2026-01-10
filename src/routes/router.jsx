@@ -21,6 +21,7 @@ import HRProfile from "../pages/DashBoard/HRProfile/HRProfile";
 import HrPackageUpgrade from "../pages/DashBoard/HrPackageUpgrade/HrPackageUpgrade";
 import PaymentSuccess from "../pages/DashBoard/Payment/PaymentSuccess";
 import PaymentCancelled from "../pages/DashBoard/Payment/PaymentCancelled";
+import RegisterSelect from "../pages/Auth/RegisterSelect/RegisterSelect";
 
 export const router = createBrowserRouter([
   // Auth Layout:
@@ -32,6 +33,11 @@ export const router = createBrowserRouter([
         // path: "/",
         index: true,
         Component: Home,
+      },
+      //select-register-page:
+      {
+        path: "/select-register-page",
+        Component: RegisterSelect,
       },
       //hr register:
       {

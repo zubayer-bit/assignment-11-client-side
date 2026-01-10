@@ -116,7 +116,7 @@ const MyTeam = () => {
        team.length === 0 ? (
         <div className="text-center text-secondary mt-10">
           {/* No team members found */}
-           <span className="loading loading-dots loading-sm text-secondary"></span>
+           <span className="loading loading-dots loading-sm text-primary"></span>
         </div>
       ) 
 
@@ -163,7 +163,7 @@ const MyTeam = () => {
   {/* 1️: Loading */}
   {isLoading && (
     <div className="flex justify-center py-10">
-      <span className="loading loading-dots loading-sm text-secondary"></span>
+      <span className="loading loading-dots loading-sm text-primary"></span>
     </div>
   )}
 

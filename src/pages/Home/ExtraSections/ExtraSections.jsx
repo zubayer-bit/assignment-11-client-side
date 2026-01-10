@@ -101,7 +101,9 @@ const ExtraSections = () => {
         </motion.div>
 
         <div className="max-w-3xl mx-auto space-y-4 mb-20">
+            
           {faqs.map((faq, index) => (
+
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -121,13 +123,16 @@ const ExtraSections = () => {
                 )}
               </button>
               {openFAQ === index && (
+
                 <p className="mt-2 text-secondary">{faq.answer}</p>
+
               )}
             </motion.div>
           ))}
         </div>
 
         {/* Contact CTA Section */}
+
      <motion.div
   initial={{ opacity: 0, y: 30 }}
   whileInView={{ opacity: 1, y: 0 }}

@@ -59,17 +59,22 @@ const FeaturesSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
+          
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
             Powerful Features
           </h2>
+
           <p className="text-lg text-secondary max-w-2xl mx-auto">
+
             Everything you need to manage company assets efficiently in one
             platform.
+
           </p>
         </motion.div>
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            
           {features.map((feature, index) => (
             <motion.div
               key={index}

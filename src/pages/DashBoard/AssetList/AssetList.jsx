@@ -12,6 +12,9 @@ import useAxiosSecure from "../../../hooks/useAuthSecure";
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 
+
+import { PieChart, Pie, Cell, Tooltip as RechartTooltip, BarChart, Bar, XAxis, YAxis, Legend, ResponsiveContainer } from 'recharts';
+
 //--------------------search code:1
 /* ========= HIGHLIGHT FUNCTION (ADD THIS) ========= */
 const highlightText = (text, searchText) => {
@@ -88,6 +91,7 @@ const limit = 10;
  
 
   //ai code aa pagination add kora holo:2
+  // total:0 mane-->Data na asa porjonto akta temporary fallback...mane data jokhn ase nai..tokhn ata data na dhorar jonno bole
   const {
   data = { assets: [], total: 0, totalPages: 1 },
   refetch,
@@ -107,7 +111,24 @@ const limit = 10;
 const { assets, totalPages } = data;
 
 
+  //------------------ Fetch chart data ------------------
+  const { data: assetTypeSummary = [] } = useQuery({
+    queryKey: ["assetTypeSummary", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/asset-type-summary`);
+      return res.data;
+    },
+    enabled: !!user?.email,
+  });
 
+  const { data: topRequestedAssetsData = [] } = useQuery({
+    queryKey: ["topRequestedAssets", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/top-requested-assets`);
+      return res.data;
+    },
+    enabled: !!user?.email,
+  });
 
 
 //------------
@@ -218,6 +239,29 @@ const result = await Swal.fire({
 }
 }
 
+
+   // ----------------- Charts Data -----------------
+ 
+
+  //------------- Pie & Bar Chart Data -------------
+  const pieData = assetTypeSummary.length
+    ? assetTypeSummary
+    : [
+        { name: "Returnable", value: 0 },
+        { name: "Non-returnable", value: 0 },
+      ];
+  const COLORS = ["#0088FE", "#FF8042"];
+
+  const topRequestedAssets = topRequestedAssetsData.length
+    ? topRequestedAssetsData.map((item) => ({
+        name: item.name,
+        requests: item.count,
+      }))
+    : [];
+
+
+
+
   return (
     <motion.div
       className="p-4 md:p-6 bg-base-100 rounded-lg shadow-md"
@@ -225,8 +269,73 @@ const result = await Swal.fire({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
+
+     
+       {/* Charts */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-15">
+        {/* Pie Chart */}
+        <div className="bg-base-200 p-4 rounded-lg shadow-md">
+           <h3 className="text-lg font-semibold mb-2 text-center text-primary">
+      Returnable vs Non-returnable Assets
+    </h3>
+    <p className="text-center text-sm text-gray-500 mb-2">
+      Pie chart showing distribution of returnable and non-returnable assets
+    </p>
+         
+          <ResponsiveContainer width="100%" height={250}>
+            <PieChart>
+              <Pie
+                data={pieData}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                fill="#8884d8"
+                label
+              >
+                {pieData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <RechartTooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Bar Chart */}
+        <div className="bg-base-200 p-4 rounded-lg shadow-md">
+          <h3 className="text-lg font-semibold mb-2 text-center text-primary">
+      Top 5 Most Requested Assets
+    </h3>
+    <p className="text-center text-sm text-gray-500 mb-2">
+      Bar chart showing top 5 assets requested by employees
+    </p>
+          
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart
+              data={topRequestedAssets}
+              margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+            >
+              <XAxis dataKey="name" />
+              <YAxis allowDecimals={false} />
+              <RechartTooltip />
+              <Legend />
+              <Bar dataKey="requests" fill="#82ca9d" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+
+
+
+
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 ">
         <h2 className="text-2xl font-bold text-primary">
           Total Asset:{assets.length}
         </h2>

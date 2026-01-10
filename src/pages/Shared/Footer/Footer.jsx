@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { motion } from "framer-motion";
 import { FaFacebookF, FaLinkedinIn, FaGithub, FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router";
@@ -18,7 +18,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <h2 className="text-2xl font-bold text-primary">AssetVerse</h2>
-            <p className="mt-3 text-sm leading-relaxed">
+            <p className="mt-3 text-sm leading-relaxed text-secondary">
               A smart corporate asset management system to track, assign,
               and manage company-owned assets efficiently.
             </p>
@@ -26,25 +26,53 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="footer-title">Quick Links</h3>
+            <h3 className="footer-title text-primary">Quick Links</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/" className="link link-hover">Home</Link></li>
-              <li><Link to="/login" className="link link-hover">Login</Link></li>
-              <li><Link to="/register-employee" className="link link-hover">Join as Employee</Link></li>
-              <li><Link to="/register-hr" className="link link-hover">Join as HR</Link></li>
+              <li>
+                <Link
+                  to="/"
+                  className="link link-hover text-secondary hover:text-primary transition-colors duration-300"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/login"
+                  className="link link-hover text-secondary hover:text-primary transition-colors duration-300"
+                >
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/register-employee"
+                  className="link link-hover text-secondary hover:text-primary transition-colors duration-300"
+                >
+                  Join as Employee
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/register-hr"
+                  className="link link-hover text-secondary hover:text-primary transition-colors duration-300"
+                >
+                  Join as HR
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="footer-title">Contact</h3>
-            <p className="text-sm">Email: support@assetverse.com</p>
-            <p className="text-sm mt-1">Phone: +880 1234-567890</p>
+            <h3 className="footer-title text-primary">Contact</h3>
+            <p className="text-sm text-secondary">Email: support@assetverse.com</p>
+            <p className="text-sm text-secondary mt-1">Phone: +880 1234-567890</p>
           </div>
 
           {/* Social */}
           <div>
-            <h3 className="footer-title">Follow Us</h3>
+            <h3 className="footer-title text-primary">Follow Us</h3>
             <div className="flex gap-4 mt-4">
               {[FaFacebookF, FaLinkedinIn, FaGithub, FaXTwitter].map(
                 (Icon, index) => (
@@ -53,9 +81,9 @@ const Footer = () => {
                     href="#"
                     whileHover={{ scale: 1.15, y: -4 }}
                     whileTap={{ scale: 0.95 }}
-                    className="btn btn-circle btn-outline"
+                    className="btn btn-circle btn-outline border-secondary text-secondary hover:bg-primary hover:text-white transition-colors duration-300"
                   >
-                    <Icon />
+                    <Icon className="text-current" />
                   </motion.a>
                 )
               )}
@@ -66,7 +94,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-base-300 py-4 text-center text-sm">
+      <div className="border-t border-base-300 py-4 text-center text-sm text-secondary">
         © {new Date().getFullYear()} AssetVerse. All rights reserved.
       </div>
     </motion.footer>

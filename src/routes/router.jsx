@@ -22,6 +22,8 @@ import HrPackageUpgrade from "../pages/DashBoard/HrPackageUpgrade/HrPackageUpgra
 import PaymentSuccess from "../pages/DashBoard/Payment/PaymentSuccess";
 import PaymentCancelled from "../pages/DashBoard/Payment/PaymentCancelled";
 import RegisterSelect from "../pages/Auth/RegisterSelect/RegisterSelect";
+import Error from "../Components/Error/Error";
+import PageLoad from "../PageLoad/PageLoad";
 
 export const router = createBrowserRouter([
   // Auth Layout:
@@ -54,6 +56,13 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         Component: Login,
+      },
+       // Catch-all 404 for Root/Layout
+      {
+        path: "*",
+        element: <Error></Error>,
+        hydrateFallbackElement: <PageLoad></PageLoad>,
+        // handle: { title: "404 - Page Not Found" },
       },
     ],
   },
@@ -179,35 +188,15 @@ export const router = createBrowserRouter([
         <EmployeeRoutes>
           <EmployeeProfile></EmployeeProfile>
         </EmployeeRoutes>
-      }
+      },
+       // Catch-all 404 for Dashboard
+      {
+        path: "*",
+        element: <Error></Error>,
+        handle: { title: "Dashboard 404 - Page Not Found" },
+      },
     ],
   },
 
-  //employee dashboard layOut:
-  // {
-  //   path: "/employeeDashboard",
-  //   element: (
-  //     <PrivateRoute>
-  //       <DashboardLayout></DashboardLayout>
-  //     </PrivateRoute>
-  //   ),
-  //   children: [
-  //     {
-  //       index: true,
-  //       // element: ,
-  //     },
-  //     {
-  //       path: "request-asset",
-  //       element: <RequestAsset></RequestAsset>,
-  //     },
-  //     {
-  //       path: "my-team",
-  //       // element: <MyTeam />,
-  //     },
-  //     {
-  //       path: "profile",
-  //       // element: <Profile />,
-  //     },
-  //   ],
-  // },
+ 
 ]);

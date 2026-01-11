@@ -50,7 +50,7 @@ const Navbar = () => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `transition-colors duration-300 px-1 pb-1 ${
+              `transition-colors font-semibold duration-300 px-1 pb-1 ${
                 isActive
                   ? "text-primary border-b-2 border-primary"
                   : "hover:text-primary hover:border-b-2 hover:border-primary"
@@ -65,7 +65,7 @@ const Navbar = () => {
               <NavLink
                 to="/employee-register"
                 className={({ isActive }) =>
-                  `transition-colors duration-300 px-1 pb-1 ${
+                  `transition-colors duration-300 font-semibold px-1 pb-1 ${
                     isActive
                       ? "text-primary border-b-2 border-primary"
                       : "hover:text-primary hover:border-b-2 hover:border-primary"
@@ -78,7 +78,7 @@ const Navbar = () => {
               <NavLink
                 to="/hr-register"
                 className={({ isActive }) =>
-                  `transition-colors duration-300 px-1 pb-1 ${
+                  `transition-colors font-semibold duration-300 px-1 pb-1 ${
                     isActive
                       ? "text-primary border-b-2 border-primary"
                       : "hover:text-primary hover:border-b-2 hover:border-primary"
